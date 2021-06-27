@@ -1,0 +1,21 @@
+
+'버튼비활성화
+Sub BtnUnenable()
+    Me.btnInsert.Enabled = False
+    Me.btnUpdate.Enabled = False
+    Me.btnDelete.Enabled = False
+End Sub
+
+'버튼비활성화 입력수정삭제
+Sub BtnAll_UnEnable()
+    Me.btnInsert.Enabled = False
+    Me.btnUpdate.Enabled = False
+    Me.btnDelete.Enabled = False
+End Sub
+
+'버튼활성화 수정삭제
+Sub BtnUpdateDelete_Enable()
+    Me.btnInsert.Enabled = False
+    Me.btnUpdate.Enabled = True
+    Me.btnDelete.Enabled = True
+End Sub
