@@ -1,0 +1,12 @@
+'행번호 추가
+Sub LastNo()
+    Dim rngDB As Range
+    
+    Set rngDB = Sheet3.Cells(Rows.Count, "a").End(xlUp)
+    
+    If IsNumeric(rngDB) Then
+        Me.lblNo = rngDB + 1
+    Else
+        Me.lblNo = 1
+    End If
+End Sub
