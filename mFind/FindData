@@ -1,0 +1,52 @@
+'찾기 사진 넣기
+Sub Find_Image()
+    Dim rngPICTURE As Range, rngDB As Range
+    Dim strAddr As String                         '처음 검색하여 찾은 셀의 주소 넣을 변수
+    Dim c As Range                                '검색하여 찾은 영역을 넣을 변수
+    Dim r As Range
+    Dim shp As Shape
+    Dim sFilePath As String
+    
+    If Me.lstDB.ListItems.Count > 0 Then
+        
+        Set rngDB = Sheet3.Range("a1", Sheet3.Cells(Rows.Count, "a").End(xlUp))
+        
+        '입력된 데이터가 1개 이상이라면
+        If rngDB.Rows.Count > 1 Then
+            With rngDB              '현재시트 사용영역에서
+                Set c = .Find(What:=Me.lstDB.SelectedItem, Lookat:=xlWhole) '처음 일치하는 데이터("가")를 찾아 C에 넣고
+                
+                If Not c Is Nothing Then                  '만일 일치하는 데이터가 있으면
+                    strAddr = c.Address                   '첫 일치하는 주소를 strAddr에 넣고
+                    
+                    Do                                           '다음을 실행
+                    
+                    Set r = c
+                    
+                    Loop While Not c Is Nothing And c.Address <> strAddr
+                    
+                    '일치하는 데이터 없고 처음 일치한 주소 아닐때까지 반복
+                End If
+            
+            End With
+        End If
+    End If
+    
+    If Not r Is Nothing Then
+    
+        Set rngPICTURE = Sheet4.Range("a1:q13")
+        
+        '특정영역 도형삭제
+        Call Del_Shps_In_Range(rngPICTURE)
+        
+        sFilePath = r.Offset(, 9) & "\" & r.Offset(, 10)
+        Set shp = Sheet4.Shapes.AddPicture(sFilePath, msoFalse, msoTrue, rngPICTURE.Left + 2, rngPICTURE.Top + 2, rngPICTURE.Width - 4, rngPICTURE.Height - 4)
+    End If
+    
+    Set rngPICTURE = Nothing
+    Set rngDB = Nothing
+    Set shp = Nothing
+    Set r = Nothing
+    Set c = Nothing
+    
+End Sub
