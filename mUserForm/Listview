@@ -22,3 +22,46 @@ Sub Get_lstDB()
     
     Set rngDB = Nothing
 End Sub
+
+'lstFile 클릭시
+Private Sub lstFile_Click()
+
+    If Me.lstFile.ListItems.Count > 0 Then
+        Dim rngPICTURE As Range
+        Dim wsPICTURE As Worksheet
+        Dim shp As Shape
+        Dim sFilePath As String
+        
+        Set rngPICTURE = Sheet4.Range("a1:q13")
+            
+        With rngPICTURE
+            sFilePath = Me.txtPath & "\" & Me.lstFile.SelectedItem.SubItems(1)
+            
+            '파일이 있다면
+            If sFilePath <> vbNullString Then
+                '특정영역 이미지(도형) 삭제
+                Call Del_Shps_In_Range(rngPICTURE)
+                
+                Set wsPICTURE = Sheet4
+                
+                '사진삽입
+                Set shp = wsPICTURE.Shapes.AddPicture(sFilePath, msoFalse, msoCTrue, rngPICTURE.Left + 2, rngPICTURE.Top + 2, rngPICTURE.Width - 4, rngPICTURE.Height - 4)
+            End If
+        End With
+        
+         '입력값 초기화
+        Call Init_InputValue
+        
+        '행번호 추가
+        Call LastNo
+        
+        '버튼활성화 입력
+        Call BtnInsert_Enable
+        
+    End If
+    
+    Set PICTURE = Nothing
+    Set wsPICTURE = Nothing
+    Set shp = Nothing
+    
+End Sub
