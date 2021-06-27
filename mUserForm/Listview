@@ -1,1 +1,24 @@
 
+'lstDB 데이터 가져오기
+Sub Get_lstDB()
+    Dim rngDB As Range
+    Dim rowCnt As Long, colCnt As Long
+    Dim i As Long, j As Long
+    Dim li As ListItem
+    
+    Set rngDB = Sheet3.Range("a1").CurrentRegion
+    
+    rowCnt = rngDB.Rows.Count
+    colCnt = rngDB.Columns.Count
+    
+    Me.lstDB.ListItems.Clear
+    
+    For i = 2 To rowCnt
+        Set li = Me.lstDB.ListItems.Add(, , rngDB(i, 1))
+        For j = 2 To colCnt
+            li.ListSubItems.Add , , rngDB(i, j)
+        Next j
+    Next i
+    
+    Set rngDB = Nothing
+End Sub
