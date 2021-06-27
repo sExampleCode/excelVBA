@@ -65,3 +65,50 @@ Private Sub lstFile_Click()
     Set shp = Nothing
     
 End Sub
+
+'그림파일만 lstFile ListView 로 가져오기
+Private Sub txtPath_DropButtonClick()
+    Dim filePath As String
+    Dim FSO As FileSystemObject
+    Dim fl As Folder
+    Dim f As File
+    Dim index As Long
+    Dim li As ListItem
+    Dim sExtension As String
+    
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        .AllowMultiSelect = False   '한개의 파일만 선택 가능
+        .Title = "이미지 폴더를 선택하세요."
+        
+        If .Show = -1 Then
+            filePath = .SelectedItems(1)
+        End If
+    End With
+    
+    '선택하지 않고 취소한 경우 종료함.
+    If filePath = vbNullString Then Exit Sub
+    
+    '텍스트박스에 폴더경로를 넣음
+    Me.txtPath = filePath
+    
+    Set FSO = New FileSystemObject
+    Set fl = FSO.GetFolder(Me.txtPath)
+    
+    'lstFile 모든 내용 지우기
+    Me.lstFile.ListItems.Clear
+    
+    For Each f In fl.Files
+        sExtension = FSO.GetExtensionName(f.Name)
+        
+        'jpg, jpeg, png 파일만 가능
+        If LCase(sExtension) = "jpg" Or LCase(sExtension) = "jpeg" Or LCase(sExtension) = "png" Then
+            Set li = Me.lstFile.ListItems.Add(, , index + 1)
+            li.ListSubItems.Add , , f.Name
+            
+            index = index + 1
+        End If
+    Next
+    
+    Set FSO = Nothing
+    Set fl = Nothing
+End Sub
