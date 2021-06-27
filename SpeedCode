@@ -1,0 +1,13 @@
+'속도업
+Sub SpOn()
+    Application.ScreenUpdating = False
+    Application.Calculation = xlCalculationManual
+    Application.EnableEvents = False
+End Sub
+
+'속도다운
+Sub SpOff()
+    Application.ScreenUpdating = True
+    Application.Calculation = xlCalculationAutomatic
+    Application.EnableEvents = True
+End Sub
