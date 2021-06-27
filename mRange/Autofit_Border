@@ -1,0 +1,12 @@
+'열너비자동, 테두리
+Sub AutoFit_Border(rngStyle As Range)
+    Application.ScreenUpdating = False
+    
+    With rngStyle.CurrentRegion
+        .Columns.AutoFit
+        .Borders.LineStyle = XlLineStyle.xlLineStyleNone
+        .Borders.LineStyle = XlLineStyle.xlContinuous
+    End With
+    
+    Application.ScreenUpdating = True
+End Sub
