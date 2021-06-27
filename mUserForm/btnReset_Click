@@ -1,0 +1,31 @@
+Private Sub btnReset_Click()
+    Dim rngDB As Range, rngPICTURE As Range
+    Dim ans As Long
+    
+    Set rngDB = Sheet3.Range("a1").CurrentRegion
+    Set rngPICTURE = Sheet4.Range("a1:q13")
+    
+    '입력 데이터가 있다면
+    If rngDB.Rows.Count > 1 Then
+        ans = MsgBox("입력된 모든 데이터를 초기화하시겠습니까?", vbYesNo + vbCritical + vbDefaultButton2, "초기화")
+        
+        If ans = vbYes Then
+            With rngDB
+                '입력된 모든값 삭제
+                .Offset(1).Resize(rngDB.Rows.Count - 1).EntireRow.Delete
+            End With
+            
+            '특정영역 도형삭제
+            Call Del_Shps_In_Range(rngPICTURE)
+            
+            'lstDB 데이터 가져오기
+            Call Get_lstDB
+            
+            '버튼활성화 수정삭제
+            Call BtnAll_UnEnable
+        End If
+
+    End If
+    
+    Set rngDB = Nothing
+End Sub
