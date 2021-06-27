@@ -1,0 +1,26 @@
+Private Sub lstDB_Click()
+    Dim li As ListItem
+    Dim rngDB As Range, c As Range
+    Dim sFilePath As String
+    
+    If Me.lstDB.ListItems.Count > 0 Then
+        Me.lblNo = Me.lstDB.SelectedItem
+        Me.cbDivision = Me.lstDB.SelectedItem.SubItems(1)
+        Me.txtPlace = Me.lstDB.SelectedItem.SubItems(2)
+        Me.dtS = CDate(Me.lstDB.SelectedItem.SubItems(3))
+        Me.txtErrContents = Me.lstDB.SelectedItem.SubItems(4)
+        Me.dtE = CDate(Me.lstDB.SelectedItem.SubItems(5))
+        Me.txtErrAS = Me.lstDB.SelectedItem.SubItems(6)
+        Me.cbResult = Me.lstDB.SelectedItem.SubItems(7)
+        Me.txtEtc = Me.lstDB.SelectedItem.SubItems(8)
+        
+        '찾고 사진 넣기
+        Call Find_Image
+        
+        '버튼활성화 수정삭제
+        Call BtnUpdateDelete_Enable
+    End If
+    
+    Set rngDB = Nothing
+    Set c = Nothing
+End Sub
