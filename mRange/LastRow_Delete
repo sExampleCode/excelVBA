@@ -1,0 +1,55 @@
+'마지막 행 삭제
+Sub LastRow_Delete()
+
+    Dim rngPICTURE As Range, rngDB As Range
+    Dim ans As Long
+    
+    If Me.lstDB.ListItems.Count > 0 Then
+        ans = MsgBox("삭제하시겠습니까?", vbYesNo + vbCritical, "삭제")
+        
+        If ans = vbYes Then
+            Set rngDB = Sheet3.Cells(Rows.Count, "a").End(xlUp)
+            
+            '입력된 데이터가 1개 이상이라면
+            If rngDB.CurrentRegion.Rows.Count > 1 Then
+            
+                '행삭제
+                rngDB.EntireRow.Delete
+               
+                '열너비자동 테두리
+                Application.ScreenUpdating = False
+                
+                Set rngDB = Sheet3.Cells(Rows.Count, "a").End(xlUp)
+                
+                With rngDB.CurrentRegion
+                    .Columns.AutoFit
+                    .Borders.LineStyle = XlLineStyle.xlLineStyleNone
+                    .Borders.LineStyle = XlLineStyle.xlContinuous
+                End With
+                
+                Application.ScreenUpdating = True
+                
+                '입력값 초기화
+                Call Init_InputValue
+                
+                Set rngPICTURE = Sheet4.Range("a1:q13")
+            
+                '특정영역 도형삭제
+                Call Del_Shps_In_Range(rngPICTURE)
+                    
+                
+                '버튼비활성화 입력수정삭제
+                Call BtnAll_UnEnable
+                    
+                'lstDB 데이터 가져오기
+                Call Get_lstDB
+                
+            End If
+            
+        End If
+        
+    End If
+    
+    Set rngPICTURE = Nothing
+    Set rngDB = Nothing
+End Sub
