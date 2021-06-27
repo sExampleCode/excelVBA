@@ -1,0 +1,5 @@
+  '경로 열기버튼 스타일 초기화
+    With Me.txtPath
+        .DropButtonStyle = fmDropButtonStyleEllipsis
+        .ShowDropButtonWhen = fmShowDropButtonWhenAlways
+    End With
