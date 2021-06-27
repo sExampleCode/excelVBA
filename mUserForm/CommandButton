@@ -19,3 +19,11 @@ Sub BtnUpdateDelete_Enable()
     Me.btnUpdate.Enabled = True
     Me.btnDelete.Enabled = True
 End Sub
+
+'버튼활성화 입력
+Sub BtnInsert_Enable()
+    Me.btnInsert.Enabled = True
+    Me.btnUpdate.Enabled = False
+    Me.btnDelete.Enabled = False
+End Sub
+
