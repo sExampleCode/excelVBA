@@ -1,0 +1,20 @@
+'특정영역 이미지(도형) 삭제
+Sub Del_Shps_In_Range(rngPICTURE As Range)
+  
+    Dim shpC As Shape                                  '각각의 도형(shape)을 넣을 변수
+    Dim rngShp As Range                               '각 도형의 왼쪽위가 속한 영역을 넣을 변수
+    Dim rngAll As Range                                 '삭제할 전체영역을 넣을 변수
+  
+    Set rngAll = rngPICTURE                                 '선택영역을 삭제할 영역으로 설정
+  
+    For Each shpC In ActiveSheet.Shapes        '삭제영역내의 각 도형을 순환
+        Set rngShp = shpC.TopLeftCell               '각 도형의 왼쪽위지점이 속한 영역을 변수에 넣음
+        If Not Intersect(rngAll, rngShp) Is Nothing Then   '도형과 삭제영역이 겹치면
+            shpC.Delete                                     '각 도형을 삭제
+        End If
+    Next shpC
+  
+    Set rngAll = Nothing                                   '개체변수들 초기화(메모리 비우기)
+    Set rngShp = Nothing
+   
+End Sub
