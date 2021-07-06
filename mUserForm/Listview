@@ -1,4 +1,39 @@
-
+Sub ListViewInitial()
+    'lvFile 초기화
+    Me.lvData.ListItems.Clear
+    With Me.lvData
+        .ColumnHeaders.Clear
+        .ColumnHeaders.Add , , "연번", 30
+        .ColumnHeaders.Add , , "구분", 86
+        .ColumnHeaders.Add , , "장소", 86
+        .ColumnHeaders.Add , , "조치일자", 86
+        .ColumnHeaders.Add , , "장애내용", 86
+        .ColumnHeaders.Add , , "조치내용", 86
+        .ColumnHeaders.Add , , "결과", 86
+        .ColumnHeaders.Add , , "비고", 86
+        .ColumnHeaders.Add , , "파일경로", 70
+        .ColumnHeaders.Add , , "파일이름", 70
+        
+        .LabelEdit = lvwManual      'Automatic 수정가능 lvwManual 수정불가
+        .FullRowSelect = True       '전체 행 선택
+        .View = lvwReport                   
+        .Gridlines = True           '라인 표시여부
+    End With
+    
+     'lvFile 초기화
+    Me.lvFile.ListItems.Clear
+    With Me.lvFile
+        .ColumnHeaders.Clear
+        .ColumnHeaders.Add , , "No", 30
+        .ColumnHeaders.Add , , "File", 325
+        
+        .LabelEdit = lvwManual
+        .FullRowSelect = True
+        .View = lvwReport
+        .Gridlines = True
+    End With
+    
+End Sub
 'lstDB 데이터 가져오기
 Sub Get_lstDB()
     Dim rngDB As Range
